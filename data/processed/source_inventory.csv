@@ -1,0 +1,9 @@
+﻿file,bytes,sha256,rows,columns
+cw_route305_temp_20260929.xlsx,10703,5e891f68187e5591,45,sheets: Sheet1
+cw_timetable_20260929.xlsx,588123,3380531ce236c32f,4573,"sheets: 운행계통(전체)|급행,좌석노선|창원~마산간선|진해간선|창원지선|마산지선|진해지선|읍면노선|공단순환"
+cw_village_bus_timetable_20251115.xlsx,42791,0a63dd7edc18a5de,281,sheets: 1번|2번|3번|7번|8번|진해마을(350~353번)
+cwbis_snapshot_20260929.json,7353591,be2f26df53eab1e7,"routes=190, route_stop_rows=19432, timetable_rows=14975",keys: source|retrieved_at|endpoints|note|route_list|bus_time_list|route_stops|timetables
+datagokr_cw_bus_stops_20251231.csv,310093,908810b0968956c2,3526,정류소아이디|서비스아이디|정류소명|방면|유형|관할관청|경도|위도|방위각|동코드
+datagokr_cw_bus_timetable_20251114.csv,9937,9bf8dac64e18e7c0,136,노선종류|노선번호|기점|종점|첫차출발|막차출발|운행대수|운행횟수|배차간격(분)|운수업체
+docs/cw_2026_new_policy.pdf,13081209,0dc0ccf3a3eadb3b,,
+docs/cw_drt_reorg_20251229.pdf,59084182,74384e66191bf544,,

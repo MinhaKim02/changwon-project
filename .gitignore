@@ -1,0 +1,5 @@
+# 대용량 참고 PDF(누비다 개편 포스터 56MB, 2026 달라지는 시책 13MB)는 URL과 해시만 기록
+data/raw/docs/
+report/refs/
+__pycache__/
+.DS_Store

@@ -1,0 +1,89 @@
+{
+  "bis_retrieved_at": "2026-09-29T11:09:06.580Z",
+  "bis_routes_total": 190,
+  "bis_routes_changwon": 172,
+  "bis_routes_gimhae_excluded": 18,
+  "route_stop_rows": 17156,
+  "route_stop_rows_linked": 16973,
+  "route_stop_link_rate": 0.9893,
+  "unique_stops_on_routes": 2769,
+  "unique_stops_unlinked": 81,
+  "linked_coord_diff_m_median": 0.0,
+  "linked_coord_diff_m_p95": 3.0,
+  "linked_coord_diff_over_50m": 88,
+  "linked_name_same_rate": 0.9572,
+  "linked_serviceid_same_rate": 0.9994,
+  "routes_with_all_stops_linked": 84,
+  "routes_total_checked": 172,
+  "route_level_first_match_rate": 0.9706,
+  "route_level_last_match_rate": 0.9485,
+  "route_level_mismatch_routes": [
+    "257",
+    "262",
+    "11",
+    "13",
+    "14",
+    "72",
+    "75-1",
+    "80",
+    "540"
+  ],
+  "official_routes_in_xlsx": 136,
+  "official_routes_matched_to_bis": 136,
+  "official_routes_not_in_bis": [],
+  "bis_routes_not_in_official": [
+    "1",
+    "2",
+    "258-1",
+    "258-2",
+    "260-1",
+    "260-2",
+    "263-1",
+    "264-1",
+    "273-1",
+    "3",
+    "302-1",
+    "302-2",
+    "350",
+    "351",
+    "352",
+    "352-1",
+    "353",
+    "353-1",
+    "510-1",
+    "511-1",
+    "530-1",
+    "540-1",
+    "64-1",
+    "65-1",
+    "65-3",
+    "7",
+    "8",
+    "998",
+    "999"
+  ],
+  "first_departure_match_rate": 0.9209,
+  "last_departure_match_rate": 0.8705,
+  "bis_timetable_beginDt": [
+    [
+      1,
+      [
+        "2026-09-28"
+      ]
+    ],
+    [
+      3,
+      [
+        "2026-10-03"
+      ]
+    ]
+  ],
+  "bis_saturday_rows": 0,
+  "notice_checks": {
+    "19번 최윤덕도서관 경유(2026.9.24.)": true,
+    "80번 감천 운행(2026.9.24.)": true,
+    "351번 대장동계곡 연장(2026.9.24.)": true,
+    "214번 사화롯데캐슬 경유(2026.9.24.)": true
+  },
+  "route_219_present_in_bis": false
+}
