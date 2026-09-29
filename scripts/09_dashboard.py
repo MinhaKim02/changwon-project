@@ -40,6 +40,34 @@ data = {
     "geo": geo,
 }
 
+# 편별 출발 시각(타임라인용). 시나리오 추가분은 06_drt_scenario.py와 같은 규칙(73번 제외, 운영시간 안).
+long = pd.read_csv(OUT / "result_table_1_long.csv", encoding="utf-8-sig")
+SC = {"S1": (7, 20), "S2": (6, 23)}
+deps = {}
+for day in ["평일", "일·공휴일"]:
+    for key, direction in [("out", "생활권→마산역"), ("back", "마산역→생활권")]:
+        sub = long[(long["요일"] == day) & (long["방향"] == direction)]
+        z = sub[sub["구분"].str.startswith("대상")]
+        c = sub[sub["구분"].str.startswith("비교")]
+        ct = c[c["시간대"] != "시각 미산출(중간경유)"]
+        rec = {"valley": sorted([[t, str(r)] for t, r in zip(z["출발시각"], z["노선"])]),
+               "jindong": sorted([[t, str(r)] for t, r in zip(ct["출발시각"], ct["노선"])]),
+               "jindong_through": int((c["시간대"] == "시각 미산출(중간경유)").sum())}
+        for sname, (a, b) in SC.items():
+            m = ct[ct["노선"].astype(str) != "73"]
+            mins = m["출발시각"].str.slice(0, 2).astype(int) * 60 + m["출발시각"].str.slice(3, 5).astype(int)
+            m = m[(mins >= a * 60) & (mins < b * 60)]
+            rec["add_" + sname] = sorted([[t, str(r)] for t, r in zip(m["출발시각"], m["노선"])])
+        deps[f"{day}|{key}"] = rec
+data["deps"] = deps
+# 06 스크립트 결과와 개수가 같은지 확인(보고서·대시보드 숫자 일치)
+o = opp[(opp["요일"] == "평일") & (opp["방향"] == "마산역 방향") & (opp["시나리오"] == "S1 07~20시")].iloc[0]
+assert len(deps["평일|out"]["valley"]) + len(deps["평일|out"]["add_S1"]) == int(o["합계_시나리오"])
+data["facts"]["boarding_by_stop"] = pd.read_csv(OUT / "boarding_valley.csv", encoding="utf-8-sig")[["name", "total"]].values.tolist()
+cyc = pd.read_csv(OUT / "drt_scenario_cycle.csv", encoding="utf-8-sig")
+data["facts"]["cycle30"] = int(cyc.loc[cyc["가정 평균속도(km/h)"] == 30, "진동↔서북동마을 왕복(분)"].iloc[0])
+data["facts"]["route73_week"] = drt["route73_weekly_boardings_all_stops"]
+
 tpl = (ROOT / "dashboard" / "template.html").read_text(encoding="utf-8")
 (ROOT / "dashboard" / "index.html").write_text(tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False)), encoding="utf-8")
 print("dashboard/index.html written")
