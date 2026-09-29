@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서북동 계곡 버스 선택지</title>
+<style>
+:root{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#8a8984;--line:#e4e3de;--card:#ffffff;--z:#eb6834;--c:#2a78d6;--add:#b9b8b2;--hub:#0b0b0b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#8f8e86;--line:#34332f;--card:#222220;--z:#d95926;--c:#3987e5;--add:#6b6a64;--hub:#ffffff}}
+:root[data-theme="dark"]{--bg:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#8f8e86;--line:#34332f;--card:#222220;--z:#d95926;--c:#3987e5;--add:#6b6a64;--hub:#ffffff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:32px 0 8px}.sub{color:var(--ink2);margin:0 0 16px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid var(--line);color:var(--ink2);margin-right:6px}
+.tag.obs{border-color:var(--c);color:var(--c)}.tag.as{border-color:#b86b00;color:#b86b00}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.big{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}.lab{color:var(--ink2);font-size:13px}
+.row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px}@media(max-width:760px){.row{grid-template-columns:1fr}}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.ctrl button{font:inherit;font-size:13px;padding:4px 12px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.ctrl button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+svg text{fill:var(--ink2);font-size:11px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}th,td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:right}th:first-child,td:first-child{text-align:left}
+.tip{position:fixed;pointer-events:none;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;display:none;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.note{font-size:12px;color:var(--muted)}.scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+<h1>서북동 계곡의 버스 선택지와 누비다 환승 연계안</h1>
+<p class="sub">창원시 공식 시간표(2026.9.29.)·창원 버스정보시스템(2026.9.29. 조회) 기준. 시각은 노선의 출발 터미널 시간표만 사용했습니다.</p>
+
+<h2>현황 <span class="tag obs">관측</span></h2>
+<div class="grid" id="kpis"></div>
+<div class="row" style="margin-top:12px">
+  <div class="card"><div class="lab">위치 — 정류소 좌표</div><svg id="map" viewBox="0 0 440 360" role="img" aria-label="73번 경로와 대상 정류소 위치"></svg>
+    <div class="legend"><span><i class="sw" style="background:var(--z)"></i>서북동 계곡(73번 단독 42곳)</span><span><i class="sw" style="background:var(--c)"></i>진동환승센터 300m</span><span><i class="sw" style="background:var(--hub)"></i>마산역 300m</span></div></div>
+  <div class="card"><div class="lab">읽는 법</div>
+    <p style="margin:6px 0">계곡의 정류소 42곳에는 73번 한 노선만 섭니다. 같은 경로에서 계곡 입구와 약 <b id="d1"></b>km 떨어진 진동환승센터에는 마산·창원 방향 버스가 모여 있습니다.</p>
+    <p class="note">토요일 시간표는 버스정보시스템이 제공하지 않아 제외했습니다. 탑승 기록은 2025년 5월 1주 자료입니다.</p></div>
+</div>
+
+<h2>비교 — 시간대별 출발 편수 <span class="tag obs">관측</span></h2>
+<div class="ctrl" id="c1"></div>
+<div class="card"><svg id="bars" viewBox="0 0 720 260" role="img" aria-label="시간대별 출발 편수 비교"></svg>
+<div class="legend"><span><i class="sw" style="background:var(--z)"></i>서북동 계곡</span><span><i class="sw" style="background:var(--c)"></i>진동환승센터 일대</span></div></div>
+<div class="card scroll" style="margin-top:12px"><table id="t1"></table></div>
+
+<h2>제안 — 누비다 환승 연계 시범 <span class="tag as">가정</span></h2>
+<p class="sub">DRT가 계곡과 진동환승센터를 잇는다고 가정할 때, 계곡 주민이 탈 수 있는 버스 편의 수입니다. 실제 이용·대기시간 감소를 뜻하지 않습니다.</p>
+<div class="ctrl" id="c2"></div>
+<div class="card"><svg id="scen" viewBox="0 0 720 260" role="img" aria-label="시나리오 출발 기회"></svg>
+<div class="legend"><span><i class="sw" style="background:var(--z)"></i>현행: 73번 직행</span><span><i class="sw" style="background:var(--add)"></i>가정: 진동에서 추가로 탈 수 있는 편</span></div></div>
+<p class="note">차량 1대·운영시간(S1 07~20시, S2 06~23시)은 가정입니다. 귀가 방향은 마산역 출발 시각 기준입니다. 원자료와 계산 스크립트는 저장소의 data/processed, scripts에 있습니다.</p>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+const D=__DATA__;
+const $=s=>document.querySelector(s),tip=$("#tip");
+const ns="http://www.w3.org/2000/svg",el=(t,a,p)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+function showTip(ev,html){tip.innerHTML=html;tip.style.display="block";tip.style.left=Math.min(ev.clientX+12,innerWidth-200)+"px";tip.style.top=(ev.clientY+12)+"px"}
+function hideTip(){tip.style.display="none"}
+const get=(p,dir,day)=>D.result.find(r=>r.place===p&&r.dir===dir&&r.day===day);
+// KPI
+const zw=get("서북동 계곡","생활권→마산역","평일"),cw=get("진동환승센터 일대","생활권→마산역","평일"),zi=get("서북동 계곡","마산역→생활권","평일");
+[["계곡→마산역 평일 출발",zw.total+"편","73번 한 노선"],["진동→마산역 평일 출발",cw.total+"편","시각 확인 편(중간경유 +"+cw.through+")"],
+ ["마산역→계곡 마지막 편",zi.last,"휴일도 같음"],["계곡 정류소 1주 탑승",D.facts.boarding_week+"명","2025.5.19~25, 16곳"]]
+ .forEach(([l,v,s])=>{$("#kpis").insertAdjacentHTML("beforeend",`<div class="card"><div class="lab">${l}</div><div class="big">${v}</div><div class="note">${s}</div></div>`)});
+$("#d1").textContent=D.facts.dist_first;
+// map
+(function(){const s=$("#map"),all=D.geo.bg.concat(D.geo.route);const xs=all.map(p=>p[0]),ys=all.map(p=>p[1]);
+const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),k=Math.min(420/((x1-x0)*0.82),340/(y1-y0));
+const X=x=>10+(x-x0)*0.82*k,Y=y=>350-(y-y0)*k;
+D.geo.bg.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:1,fill:"var(--line)"},s));
+el("polyline",{points:D.geo.route.map(p=>X(p[0])+","+Y(p[1])).join(" "),fill:"none",stroke:"var(--muted)","stroke-width":2},s);
+[["Z","var(--z)","서북동 계곡 정류소"],["C","var(--c)","진동환승센터 일대"],["H","var(--hub)","마산역 일대"]].forEach(([k2,c,n])=>D.geo[k2].forEach(p=>{
+ const g=el("circle",{cx:X(p[0]),cy:Y(p[1]),r:4.5,fill:c,stroke:"var(--card)","stroke-width":2},s);
+ g.addEventListener("mousemove",e=>showTip(e,n));g.addEventListener("mouseleave",hideTip)}));})();
+// grouped bars
+function bars(svg,series,max){svg.innerHTML="";const W=720,H=260,L=36,B=26,T=14,bw=(W-L-10)/D.bands.length;
+ for(let v=0;v<=max;v+=Math.max(2,Math.ceil(max/5/2)*2)){const y=H-B-(H-B-T)*v/max;el("line",{x1:L,x2:W-6,y1:y,y2:y,stroke:"var(--line)"},svg);el("text",{x:L-6,y:y+4,"text-anchor":"end"},svg).textContent=v}
+ D.bands.forEach((b,i)=>{el("text",{x:L+bw*i+bw/2,y:H-8,"text-anchor":"middle"},svg).textContent=b;
+  series.forEach((s,j)=>{const n=series.length,w=Math.min(28,(bw-16)/n),x=L+bw*i+bw/2-(n*w+(n-1)*2)/2+j*(w+2);
+   let acc=0;s.parts.forEach(pt=>{const v=pt.vals[i];if(!v)return;const h=(H-B-T)*v/max,y=H-B-(H-B-T)*acc/max-h;
+    const r=el("path",{d:`M${x},${y+h}V${y+Math.min(4,h)}q0,-4 4,-4h${w-8}q4,0 4,4V${y+h}Z`,fill:pt.color},svg);
+    if(pt.hatch)r.setAttribute("opacity",".85");acc+=v;
+    const hit=el("rect",{x:x-2,y:T,width:w+4,height:H-B-T,fill:"transparent"},svg);
+    hit.addEventListener("mousemove",e=>showTip(e,`<b>${b}</b><br>${s.name}: ${s.parts.map(q=>q.label+" "+q.vals[i]).join(", ")}`));hit.addEventListener("mouseleave",hideTip)});
+   const tot=s.parts.reduce((a,p)=>a+p.vals[i],0);el("text",{x:x+w/2,y:H-B-(H-B-T)*tot/max-4,"text-anchor":"middle"},svg).textContent=tot})})}
+function toggles(box,opts,cb){let cur=opts[0];opts.forEach(o=>{const b=document.createElement("button");b.textContent=o;b.setAttribute("aria-pressed",o===cur);
+ b.onclick=()=>{cur=o;[...box.children].forEach(c=>c.setAttribute("aria-pressed",c.textContent===o));cb(o)};box.appendChild(b)});cb(cur)}
+const views=["평일 · 계곡→마산역","평일 · 마산역→계곡","일·공휴일 · 계곡→마산역","일·공휴일 · 마산역→계곡"];
+toggles($("#c1"),views,v=>{const[day,d]=v.split(" · "),dir=d.startsWith("계곡")?"생활권→마산역":"마산역→생활권";
+ const z=get("서북동 계곡",dir,day),c=get("진동환승센터 일대",dir,day);
+ bars($("#bars"),[{name:"서북동 계곡",parts:[{label:"출발",vals:z.counts,color:"var(--z)"}]},{name:"진동환승센터 일대",parts:[{label:"출발",vals:c.counts,color:"var(--c)"}]}],16);
+ $("#t1").innerHTML=`<tr><th>구분</th>${D.bands.map(b=>`<th>${b}</th>`).join("")}<th>합계</th><th>첫</th><th>마지막</th><th>중간경유</th></tr>`+
+  [z,c].map(r=>`<tr><td>${r.place}</td>${r.counts.map(n=>`<td>${n}</td>`).join("")}<td><b>${r.total}</b></td><td>${r.first}</td><td>${r.last}</td><td>${r.through}</td></tr>`).join("")});
+const sv=["평일 · 마산역 방향 · S1 07~20시","평일 · 마산역 방향 · S2 06~23시","평일 · 귀가 방향 · S1 07~20시","일·공휴일 · 마산역 방향 · S1 07~20시"];
+toggles($("#c2"),sv,v=>{const[day,dir,scen]=v.split(" · ");const r=D.scenario.find(s=>s.day===day&&s.dir===dir&&s.scen===scen);
+ bars($("#scen"),[{name:"계곡 주민 출발 기회",parts:[{label:"73번 직행",vals:r.base,color:"var(--z)"},{label:"진동 연계(가정)",vals:r.with.map((w,i)=>w-r.base[i]),color:"var(--add)",hatch:1}]}],16)});
+</script>
+</body>
+</html>

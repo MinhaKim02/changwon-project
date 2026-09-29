@@ -1,0 +1,28 @@
+{
+  "valley_unique_name_stops": [
+    "금산1반",
+    "금산마을입구",
+    "대밭골교",
+    "대평마을",
+    "덕곡",
+    "덕곡2교",
+    "덕곡입구",
+    "부산마을입구",
+    "서북동마을",
+    "영동",
+    "영동종점",
+    "영학리",
+    "이목",
+    "이목마을",
+    "이목마을회관",
+    "일성식물원",
+    "학동마을회관"
+  ],
+  "valley_names_excluded_ambiguous": [
+    "금산마을"
+  ],
+  "valley_weekly_boardings_unique_names": 331,
+  "route73_weekly_boardings_all_stops": 2871,
+  "dist_km_jindong_to_first_valley_stop": 2.25,
+  "dist_km_jindong_to_seobukdong_terminal": 9.99
+}
