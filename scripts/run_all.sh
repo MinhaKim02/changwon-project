@@ -9,5 +9,5 @@ python3 04_result_table.py
 python3 05_crosscheck_official.py
 python3 06_drt_scenario.py
 python3 07_figures.py
-python3 08_build_report.py
+[ -f 08_build_report.py ] && python3 08_build_report.py  # 보고서 생성(비공개)
 python3 09_dashboard.py

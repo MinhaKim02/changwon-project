@@ -2,234 +2,280 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>버스가 하루 10번 오는 마을</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>서북동 계곡 버스 이야기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-:root{--bg:#f7f7f5;--card:#ffffff;--ink:#141413;--ink2:#4d4c48;--muted:#86857f;--line:#e3e2dd;--soft:#efeeea;
---z:#e0602b;--zsoft:#fbe9e1;--c:#2a78d6;--csoft:#e3eefb;--add:#a9a8a1;--warn:#9a5a00;--warnsoft:#fbf1e1}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171716;--card:#21211f;--ink:#f3f2ee;--ink2:#c7c6be;--muted:#8f8e86;--line:#353430;--soft:#2a2a27;
---z:#e9763f;--zsoft:#3a2419;--c:#4a90e8;--csoft:#1b2a3d;--add:#77766f;--warn:#e0a54a;--warnsoft:#33291a}}
-:root[data-theme="dark"]{--bg:#171716;--card:#21211f;--ink:#f3f2ee;--ink2:#c7c6be;--muted:#8f8e86;--line:#353430;--soft:#2a2a27;
---z:#e9763f;--zsoft:#3a2419;--c:#4a90e8;--csoft:#1b2a3d;--add:#77766f;--warn:#e0a54a;--warnsoft:#33291a}
+/* 레이아웃: 한 화면에 한 가지 이야기. 넓은 여백, 큰 제목 한 줄, 그 아래 근거 하나. 섹션마다 배경을 번갈아 흐름을 나눈다. */
+:root{
+  --bg:#fbfbfa; --panel:#f1f0ec; --ink:#1b1b19; --ink2:#5d5c57; --muted:#8e8d86; --line:#e2e1dc;
+  --valley:#d4561f; --valley-soft:#fbe8de; --hub:#1f6fd1; --hub-soft:#e2edfb; --ghost:#aeada5; --caution:#8f5a00; --caution-soft:#f8efdf;
+  --f-body:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --s1:clamp(40px,7vw,72px); --s2:clamp(28px,4.2vw,44px); --s3:21px; --s4:17px; --s5:14px;
+  --pad:clamp(72px,11vw,136px); --w:980px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141413; --panel:#1d1d1b; --ink:#f2f1ec; --ink2:#bdbcb4; --muted:#8a8982; --line:#2f2f2c;
+  --valley:#ec7440; --valley-soft:#3a2216; --hub:#4a8ff0; --hub-soft:#18273c; --ghost:#6f6e68; --caution:#e2a64b; --caution-soft:#30271a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141413; --panel:#1d1d1b; --ink:#f2f1ec; --ink2:#bdbcb4; --muted:#8a8982; --line:#2f2f2c;
+  --valley:#ec7440; --valley-soft:#3a2216; --hub:#4a8ff0; --hub-soft:#18273c; --ghost:#6f6e68; --caution:#e2a64b; --caution-soft:#30271a; color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;word-break:keep-all}
-main{max-width:880px;margin:0 auto;padding:32px 16px 64px}
-.eyebrow{font-size:13px;color:var(--muted);margin:0}
-h1{font-size:32px;line-height:1.3;margin:6px 0 10px;letter-spacing:-.5px}
-.lead{font-size:18px;color:var(--ink2);margin:0 0 20px}
-nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
-nav a{font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:3px 12px}
-section{margin-top:44px}
-.step{display:flex;align-items:center;gap:10px;margin:0 0 6px}
-.num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:14px;font-weight:700}
-h2{font-size:22px;margin:0;letter-spacing:-.3px}
-p{margin:8px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
-.callout{background:var(--soft);border-radius:12px;padding:14px 16px;margin:14px 0}
-.warn{background:var(--warnsoft);border-left:4px solid var(--warn);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:14px}
-.warn b{color:var(--warn)}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.steps .card{padding:14px}.steps .k{font-size:12px;color:var(--muted)}
-@media(max-width:700px){.steps{grid-template-columns:1fr}h1{font-size:26px}}
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch;margin:14px 0}
-.vs .card{text-align:center}.vs .n{font-size:44px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
-.vs .z .n{color:var(--z)}.vs .c .n{color:var(--c)}.vs .mid{align-self:center;color:var(--muted);font-weight:700}
-.vs .z{background:var(--zsoft);border-color:transparent}.vs .c{background:var(--csoft);border-color:transparent}
-.lab{font-size:14px;color:var(--ink2)}.small{font-size:13px;color:var(--muted)}
-.two{display:grid;grid-template-columns:1.1fr 1fr;gap:12px}@media(max-width:700px){.two{grid-template-columns:1fr}}
-.ctrl{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
-.ctrl button{font:inherit;font-size:14px;padding:4px 14px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-.ctrl button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-svg{display:block;width:100%;height:auto}svg text{fill:var(--ink2);font-size:12px;font-family:inherit}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:8px}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
-.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}
-.node{border-radius:12px;padding:10px 14px;text-align:center;font-weight:700;min-width:120px}
-.node small{display:block;font-weight:400;font-size:12px;color:var(--ink2)}
-.arrow{color:var(--muted);font-size:13px;text-align:center}
-.arrow b{display:block;font-size:20px;line-height:1}
-ul.plain{margin:6px 0;padding-left:20px}ul.plain li{margin:4px 0}
-.bars .row{display:grid;grid-template-columns:110px 1fr 40px;gap:8px;align-items:center;font-size:14px;margin:3px 0}
-.bars .b{height:12px;border-radius:0 4px 4px 0;background:var(--z)}
-table{border-collapse:collapse;width:100%;font-size:14px}td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}td:first-child{color:var(--ink2);width:92px}
-.tag{font-size:12px;border-radius:10px;padding:1px 8px;margin-left:6px;vertical-align:2px;border:1px solid}
-.tag.obs{color:var(--c);border-color:var(--c)}.tag.as{color:var(--warn);border-color:var(--warn)}
-.tlwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}.tlwrap svg{min-width:640px}
-.tip{position:fixed;pointer-events:none;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;display:none;box-shadow:0 4px 14px rgba(0,0,0,.15);z-index:9}
-footer{margin-top:48px;font-size:13px;color:var(--muted)}footer li{margin:2px 0}
+html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--s4)/1.75 var(--f-body);word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--w);margin:0 auto;padding-inline:20px}
+section{padding-block:var(--pad)}
+section.alt{background:var(--panel)}
+.eyebrow{font-size:var(--s5);font-weight:500;letter-spacing:.06em;color:var(--muted);margin:0 0 14px}
+h1,h2{margin:0;font-weight:700;letter-spacing:-.025em;text-wrap:balance;line-height:1.18}
+h1{font-size:var(--s1)} h2{font-size:var(--s2)}
+.lede{font-size:var(--s3);color:var(--ink2);max-width:36em;margin:22px 0 0;line-height:1.65}
+p{margin:0}.body{max-width:38em;color:var(--ink2);display:grid;gap:14px;margin-top:22px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.small{font-size:var(--s5);color:var(--muted)}
+/* 상단 바 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:52px}
+.bar b{font-size:15px}.bar nav{display:flex;gap:18px;font-size:13px;color:var(--ink2)}.bar nav a{text-decoration:none}.bar nav a:hover{color:var(--ink)}
+@media(max-width:720px){.bar nav{display:none}}
+/* 히어로 숫자 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,4vw,48px);margin-top:clamp(40px,7vw,72px)}
+.duo .v{font-family:var(--f-num);font-size:clamp(64px,13vw,148px);line-height:1;letter-spacing:-.04em}
+.duo .k{font-size:var(--s4);font-weight:700;margin-top:12px}.duo .d{font-size:var(--s5);color:var(--muted);margin-top:4px}
+.valley{color:var(--valley)}.hub{color:var(--hub)}
+@media(max-width:560px){.duo{grid-template-columns:1fr}}
+/* 방법 3단계: 실제 순서가 있는 과정이라 번호를 쓴다 */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,4vw,48px);margin-top:48px;counter-reset:st}
+.steps div{border-top:2px solid var(--ink);padding-top:18px}
+.steps div::before{counter-increment:st;content:"0" counter(st);font-family:var(--f-num);font-size:var(--s5);color:var(--muted);display:block;margin-bottom:10px}
+.steps b{display:block;font-size:var(--s3);line-height:1.4;margin-bottom:8px}.steps p{color:var(--ink2);font-size:15px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+/* 그림 */
+figure{margin:48px 0 0}figcaption{margin-top:14px;font-size:var(--s5);color:var(--muted);max-width:44em}
+svg{display:block;width:100%;height:auto}svg text{font-family:var(--f-body);fill:var(--ink2)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font-size:var(--s5);color:var(--ink2);margin-top:16px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+.map{max-width:720px;margin-inline:auto}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.scroll svg{min-width:620px}
+/* 전환 버튼 */
+.seg{display:inline-flex;background:var(--panel);border-radius:999px;padding:3px;gap:2px;margin:0 8px 10px 0}
+section.alt .seg{background:var(--bg)}
+.seg button{font:500 14px var(--f-body);border:0;background:transparent;color:var(--ink2);padding:6px 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--hub);outline-offset:2px}
+.callout{font-size:var(--s3);line-height:1.6;margin-top:28px;max-width:34em}
+/* 탑승 막대 */
+.bars{display:grid;gap:10px;margin-top:40px;max-width:640px}
+.bars .r{display:grid;grid-template-columns:7.5em minmax(0,1fr) 3.5em;gap:14px;align-items:center;font-size:15px}
+.bars .t{height:10px;border-radius:0 5px 5px 0;background:var(--valley)}.bars .n{text-align:right;color:var(--ink2)}
+/* 제안 흐름 */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:14px;margin-top:48px}
+.node{border-radius:20px;padding:22px 16px;text-align:center}.node b{display:block;font-size:var(--s3)}.node span{font-size:var(--s5);color:var(--ink2)}
+.link{text-align:center;font-size:13px;color:var(--ink2)}.link i{display:block;font-style:normal;font-size:22px;line-height:1;color:var(--muted)}
+@media(max-width:720px){.flow{grid-template-columns:1fr}.link i{transform:rotate(90deg)}}
+.change{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-top:48px}
+.change .v{font-family:var(--f-num);font-size:clamp(56px,10vw,112px);line-height:1;letter-spacing:-.04em}
+.change .arrow{font-size:clamp(28px,4vw,44px);color:var(--muted)}
+.caution{background:var(--caution-soft);color:var(--ink);border-radius:14px;padding:16px 20px;margin-top:28px;font-size:15px;max-width:44em}
+.caution b{color:var(--caution)}
+/* 운영안 */
+dl.plan{display:grid;grid-template-columns:8em minmax(0,1fr);margin:40px 0 0;max-width:44em}
+dl.plan dt,dl.plan dd{margin:0;padding:16px 0;border-top:1px solid var(--line)}
+dl.plan dt{color:var(--muted);font-size:15px}dl.plan dd{font-size:var(--s4)}
+.pill{display:inline-block;font-size:12px;font-weight:500;padding:1px 9px;border-radius:999px;background:var(--caution-soft);color:var(--caution);margin-left:6px;vertical-align:2px}
+.pill.fact{background:var(--hub-soft);color:var(--hub)}
+ul.lim{margin:32px 0 0;padding:0;list-style:none;display:grid;gap:14px;max-width:40em}
+ul.lim li{padding-left:18px;position:relative;color:var(--ink2)}ul.lim li::before{content:"";position:absolute;left:0;top:.75em;width:6px;height:6px;border-radius:50%;background:var(--muted)}
+footer{padding-block:48px 72px;border-top:1px solid var(--line);font-size:var(--s5);color:var(--muted)}
+footer ul{margin:10px 0 0;padding-left:18px}
+.tip{position:fixed;pointer-events:none;z-index:9;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.14)}
 </style>
 </head>
 <body>
+<header class="bar"><div class="wrap"><b>서북동 계곡 버스 이야기</b>
+<nav><a href="#why">왜</a><a href="#how">어떻게</a><a href="#where">어디</a><a href="#day">하루</a><a href="#people">이용</a><a href="#plan">제안</a><a href="#limits">주의</a></nav></div></header>
+
 <main>
-<p class="eyebrow">2026 창원시 AI·데이터 활용 공모전 · 분석 결과 요약</p>
-<h1>버스가 하루 10번 오는 마을,<br>호출버스로 옆 동네 환승센터와 이으면?</h1>
-<p class="lead">창원시 버스 시간표로 버스가 가장 드문 동네를 찾고, 이미 있는 호출버스 ‘누비다’를 어디에 쓰면 좋을지 제안합니다.</p>
-<nav><a href="#s1">① 왜 봤나</a><a href="#s2">② 어떻게 찾았나</a><a href="#s3">③ 무엇을 발견했나</a><a href="#s4">④ 제안</a><a href="#s5">⑤ 주의할 점</a></nav>
+<section><div class="wrap">
+  <p class="eyebrow">창원시 진북면 서북동 계곡 · 평일 마산역 방향 버스</p>
+  <h1>버스가 하루 <span class="valley">10번</span> 오는 마을.</h1>
+  <p class="lede">바로 옆 진동환승센터에서는 같은 방향 버스가 <b class="hub" id="heroC"></b>번 출발합니다. 이 차이를 작은 호출버스로 메울 수 있을지 살펴봤습니다.</p>
+  <div class="duo">
+    <div><div class="v valley" id="nz"></div><div class="k">서북동 계곡</div><div class="d">73번 한 노선</div></div>
+    <div><div class="v hub" id="nc"></div><div class="k">진동환승센터</div><div class="d" id="ncs"></div></div>
+  </div>
+</div></section>
 
-<section id="s1">
-  <div class="step"><span class="num">1</span><h2>왜 이걸 봤나</h2></div>
-  <p>창원시에는 부르면 오는 작은 버스 <b>‘누비다’</b>가 있습니다. 지금은 창원시청 주변 도심에서만 다니고, 시는 2026년에 운행 지역을 늘릴 계획입니다.</p>
-  <p>그런데 <b>어디에</b> 늘려야 할까요? 버스가 이미 자주 다니는 곳보다, 버스가 드물어서 발이 묶이는 동네에 필요합니다. 그래서 공개된 버스 시간표로 그런 동네를 직접 찾아봤습니다.</p>
-</section>
+<section class="alt" id="why"><div class="wrap">
+  <p class="eyebrow">왜 봤나</p>
+  <h2>창원시는 호출버스를 늘리려 합니다.<br>그런데 어디에 필요할까요?</h2>
+  <div class="body">
+    <p>창원에는 앱으로 부르면 오는 작은 버스 ‘누비다’가 있습니다. 지금은 창원시청 주변 도심에서만 다니고, 시는 2026년에 운행 지역을 늘릴 계획을 밝혔습니다.</p>
+    <p>호출버스가 가장 필요한 곳은 버스가 드물어 발이 묶이는 동네입니다. 그래서 공개된 버스 시간표만으로 그런 동네를 직접 찾아봤습니다.</p>
+  </div>
+</div></section>
 
-<section id="s2">
-  <div class="step"><span class="num">2</span><h2>어떻게 찾았나</h2></div>
+<section id="how"><div class="wrap">
+  <p class="eyebrow">어떻게 찾았나</p>
+  <h2>정류소마다 하루에 버스가 몇 번 오는지 셌습니다.</h2>
   <div class="steps">
-    <div class="card"><div class="k">STEP 1</div><b>모든 노선의 정류소 모으기</b><p class="small">창원 시내버스 172개 노선이 어느 정류소에 서는지 모았습니다(창원 버스정보시스템).</p></div>
-    <div class="card"><div class="k">STEP 2</div><b>정류소마다 버스 수 세기</b><p class="small">공식 시간표(2026.9.29.)로 정류소마다 하루에 버스가 몇 번 지나가는지 셌습니다.</p></div>
-    <div class="card"><div class="k">STEP 3</div><b>드문 곳이 모인 동네 찾기</b><p class="small">한 노선만, 드물게 다니는 정류소가 가장 많이 모인 곳은 <b>진북면 서북동 계곡(42곳)</b>이었습니다.</p></div>
+    <div><b>노선별 정류소 모으기</b><p>창원 시내버스 172개 노선이 어느 정류소에 서는지 버스정보시스템에서 모았습니다.</p></div>
+    <div><b>하루 버스 수 세기</b><p>창원시 공식 시간표(2026년 9월 29일 기준)로 정류소마다 하루에 지나가는 버스를 셌습니다.</p></div>
+    <div><b>드문 곳이 모인 동네 찾기</b><p>한 노선만 드물게 다니는 정류소가 가장 많이 모인 곳은 진북면 서북동 계곡, 42곳이었습니다.</p></div>
   </div>
-</section>
+</div></section>
 
-<section id="s3">
-  <div class="step"><span class="num">3</span><h2>무엇을 발견했나 <span class="tag obs">실제 시간표</span></h2></div>
-  <div class="two" style="margin-top:12px">
-    <div class="card"><div class="lab">어디인가요?</div><svg id="map" viewBox="0 0 440 340" role="img" aria-label="73번 경로와 서북동 계곡, 진동환승센터, 마산역 위치"></svg>
-      <div class="legend"><span><i class="dot" style="background:var(--z)"></i>서북동 계곡 정류소</span><span><i class="dot" style="background:var(--c)"></i>진동환승센터</span><span><i class="dot" style="background:var(--ink)"></i>마산역</span></div></div>
-    <div class="card"><div class="lab">한눈에 보기</div>
-      <p>서북동 계곡 마을들(덕곡·이목·금산·학동·서북동 등)에는 <b>73번 버스 한 노선</b>만 다닙니다.</p>
-      <p>계곡 입구에서 약 <b id="dist"></b>km 떨어진 <b>진동환승센터</b>에는 마산·창원으로 가는 버스가 여러 노선 모입니다.</p>
-      <p class="small">두 곳 모두 같은 목적지(마산역)로 가는 버스를 비교했습니다. 마산역은 기차·시외버스로 갈아탈 수 있는 곳입니다.</p></div>
-  </div>
+<section class="alt" id="where"><div class="wrap">
+  <p class="eyebrow">어디인가</p>
+  <h2>산 사이로 난 계곡 길,<br>그 끝까지 73번 한 노선이 다닙니다.</h2>
+  <p class="lede">계곡 입구에서 약 <span class="num" id="dist"></span>km 떨어진 진동환승센터에는 마산·창원으로 가는 여러 노선이 모입니다. 두 곳에서 같은 목적지, 마산역으로 가는 버스를 비교했습니다.</p>
+  <figure class="map"><svg id="map" viewBox="0 0 560 420" role="img" aria-label="73번 경로와 서북동 계곡, 진동환승센터, 마산역 위치"></svg>
+    <div class="legend"><span><i class="dot" style="background:var(--valley)"></i>서북동 계곡 정류소 42곳</span><span><i class="dot" style="background:var(--hub)"></i>진동환승센터</span><span><i class="dot" style="background:var(--ink)"></i>마산역</span><span><i class="dot" style="background:var(--ghost)"></i>73번 경로</span></div>
+    <figcaption>회색 점은 이 범위의 모든 시내버스 정류소입니다. 좌표는 창원 버스정보시스템(2026.9.29. 조회).</figcaption></figure>
+</div></section>
 
-  <p style="margin-top:18px"><b>평일에 마산역 쪽으로 나가는 버스</b>는 몇 번일까요?</p>
-  <div class="vs"><div class="card z"><div class="lab">서북동 계곡</div><div class="n" id="nz"></div><div class="small">73번 한 노선</div></div><div class="mid">vs</div>
-    <div class="card c"><div class="lab">진동환승센터</div><div class="n" id="nc"></div><div class="small" id="ncs"></div></div></div>
+<section id="day"><div class="wrap">
+  <p class="eyebrow">하루 동안</p>
+  <h2>한 번 놓치면, 다음 버스까지 <span class="valley">1시간 45분.</span></h2>
+  <p class="lede">점 하나가 버스 한 대의 출발 시각입니다. 위는 계곡, 아래는 진동환승센터입니다.</p>
+  <figure>
+    <div><div class="seg" id="ctlDay"></div><div class="seg" id="ctlDir"></div></div>
+    <div class="scroll"><svg id="tl" viewBox="0 0 900 190" role="img" aria-label="하루 동안 버스 출발 시각"></svg></div>
+    <p class="callout" id="tlnote"></p>
+    <figcaption>진동환승센터는 그곳에서 출발하는 버스만 점으로 그렸습니다. 다른 곳에서 출발해 진동을 지나가기만 하는 버스(하루 <span id="thr"></span>번, 73번 포함)는 지나가는 시각이 시간표에 없어서 빼고 그렸습니다. 토요일은 시간표가 제공되지 않아 제외했습니다.</figcaption>
+  </figure>
+</div></section>
 
-  <div class="card">
-    <div class="lab">하루 중 언제 출발하나요? <span class="small">— 점 하나 = 버스 한 대가 출발하는 시각</span></div>
-    <div class="ctrl" id="ctlDay"></div><div class="ctrl" id="ctlDir" style="margin-top:-4px"></div>
-    <div class="tlwrap"><svg id="tl" viewBox="0 0 820 170" role="img" aria-label="시간대별 버스 출발 타임라인"></svg></div>
-    <p id="tlnote" style="font-size:15px"></p>
-    <p class="small">진동환승센터는 그곳에서 출발하는 버스만 점으로 표시했습니다. 다른 곳에서 출발해 진동을 지나가는 버스(<span id="thr"></span>번 더)는 도착 시각이 시간표에 없어서 점으로 그리지 않았습니다.</p>
-  </div>
+<section class="alt" id="people"><div class="wrap">
+  <p class="eyebrow">이용하는 사람</p>
+  <h2>그래도 일주일에 <span class="valley num" id="bw"></span>명이<br>이 계곡에서 버스를 탑니다.</h2>
+  <p class="lede">하루 평균 약 <span class="num" id="bd"></span>명입니다. 버스가 드물어도 이용하는 주민이 있습니다.</p>
+  <div class="bars" id="bars"></div>
+  <p class="small" style="margin-top:20px">2025년 5월 19~25일 한 주, 공공데이터포털 ‘창원시 시내버스 탑승인원’. 이름이 다른 동네와 겹치지 않는 16개 정류소만 셌습니다.</p>
+</div></section>
 
-  <div class="card" style="margin-top:12px">
-    <div class="lab">그래도 타는 사람이 있나요? <span class="tag obs">실제 탑승 기록</span></div>
-    <p>2025년 5월 한 주 동안 계곡 정류소에서 <b id="bw"></b>명이 버스를 탔습니다. 하루 평균 약 <b id="bd"></b>명입니다. 버스가 드물어도 이용하는 주민이 있다는 뜻입니다.</p>
-    <div class="bars" id="bars"></div>
-    <p class="small">출처: 공공데이터포털 ‘창원시 시내버스 탑승인원’(2025.5.19~25). 이름이 다른 동네와 겹치지 않는 16개 정류소만 셌습니다.</p>
-  </div>
-</section>
-
-<section id="s4">
-  <div class="step"><span class="num">4</span><h2>제안: 호출버스로 환승센터까지만 이어 주기 <span class="tag as">가정</span></h2></div>
-  <p>계곡에서 마산역까지 큰 버스를 더 넣는 대신, <b>계곡 ↔ 진동환승센터</b>의 짧은 구간(약 2~10km)만 누비다로 이어 줍니다. 그러면 주민은 진동에서 자주 오는 다른 버스로 갈아탈 수 있습니다.</p>
-  <div class="card">
-    <div class="flow">
-      <div class="node" style="background:var(--zsoft)">서북동 계곡<small>정류소 42곳</small></div>
-      <div class="arrow"><b>→</b>누비다 호출</div>
-      <div class="node" style="background:var(--csoft)">진동환승센터<small>여러 노선이 출발</small></div>
-      <div class="arrow"><b>→</b>시내버스</div>
-      <div class="node" style="background:var(--soft)">마산역<small>기차·시외버스</small></div>
-    </div>
+<section id="plan"><div class="wrap">
+  <p class="eyebrow">제안 <span class="pill">가정</span></p>
+  <h2>계곡에서 환승센터까지만,<br>누비다로 이어 주면 어떨까요?</h2>
+  <p class="lede">마산역까지 큰 버스를 더 넣는 대신, 계곡과 진동환승센터 사이 짧은 구간만 호출버스로 잇습니다. 주민은 진동에서 자주 오는 다른 버스로 갈아탈 수 있습니다.</p>
+  <div class="flow">
+    <div class="node" style="background:var(--valley-soft)"><b>서북동 계곡</b><span>정류소 42곳에서 호출</span></div>
+    <div class="link"><i>→</i>누비다</div>
+    <div class="node" style="background:var(--hub-soft)"><b>진동환승센터</b><span>여러 노선이 출발</span></div>
+    <div class="link"><i>→</i>시내버스</div>
+    <div class="node" style="background:var(--panel)"><b>마산역</b><span>기차·시외버스 환승</span></div>
   </div>
 
-  <div class="card" style="margin-top:12px">
-    <div class="lab">이렇게 하면 계곡 주민이 탈 수 있는 버스는? <span class="small">(평일, 마산역 방향)</span></div>
-    <div class="ctrl" id="ctlSc"></div>
-    <div class="vs" style="margin:6px 0"><div class="card z"><div class="lab">지금</div><div class="n" id="s0"></div><div class="small">73번만</div></div><div class="mid">→</div>
-      <div class="card" style="background:var(--soft);border-color:transparent"><div class="lab">누비다 연결 시</div><div class="n" id="s1n"></div><div class="small">73번 + 진동에서 갈아타기</div></div></div>
-    <div class="tlwrap"><svg id="tl2" viewBox="0 0 820 110" role="img" aria-label="시나리오 타임라인"></svg></div>
-    <div class="legend"><span><i class="dot" style="background:var(--z)"></i>73번(지금도 있음)</span><span><i class="dot" style="background:transparent;border:2px dashed var(--add)"></i>진동에서 갈아탈 수 있는 버스(누비다 운영 시간 안)</span></div>
-    <div class="warn"><b>주의</b> 이 숫자는 ‘시간표상 탈 수 있는 버스 수’입니다. 실제로 기다리는 시간이 얼마나 줄어드는지는 시범 운영을 해 봐야 알 수 있습니다.</div>
-  </div>
+  <p class="small" style="margin-top:56px">계곡 주민이 평일에 마산역 방향으로 탈 수 있는 버스</p>
+  <div class="change"><span class="v valley" id="s0"></span><span class="arrow">→</span><span class="v" id="s1n"></span></div>
+  <figure style="margin-top:28px">
+    <div class="seg" id="ctlSc"></div>
+    <div class="scroll"><svg id="tl2" viewBox="0 0 900 130" role="img" aria-label="누비다 연결 시 탈 수 있는 버스 시각"></svg></div>
+    <div class="legend"><span><i class="dot" style="background:var(--valley)"></i>73번 (지금도 있음)</span><span><i class="dot" style="border:2px dashed var(--ghost)"></i>누비다로 진동까지 가서 탈 수 있는 버스</span></div>
+  </figure>
+  <p class="caution"><b>이 숫자의 뜻</b> 시간표상 탈 수 있는 버스의 수입니다. 실제로 기다리는 시간이 얼마나 줄어드는지는 시범 운영 기록으로 확인해야 합니다.</p>
 
-  <div class="card" style="margin-top:12px">
-    <div class="lab">시범 운영안</div>
-    <table>
-      <tr><td>어디서</td><td>진북면 덕곡입구~서북동마을 정류소 42곳 (지금 있는 정류소를 그대로 호출 장소로 사용)</td></tr>
-      <tr><td>어디로</td><td>진동환승센터 (마산·창원행 버스로 갈아타는 곳)</td></tr>
-      <tr><td>언제</td><td>07~20시부터 시작 <span class="tag as">가정</span> — 73번이 대부분 1시간 45분 간격이라 그 사이를 메우는 목적</td></tr>
-      <tr><td>몇 대</td><td>1대 <span class="tag as">가정</span> — 시속 30km로 가정하면 가장 먼 서북동마을까지 왕복 약 <b id="cyc"></b>분</td></tr>
-      <tr><td>어떻게</td><td>지금 누비다처럼 ‘경남콜버스’ 앱으로 호출, 요금·환승은 시내버스와 같게</td></tr>
-      <tr><td>겹침</td><td>지금 누비다 구역(성산구 도심), 예정된 진해 신항 시범과 겹치지 않음</td></tr>
-    </table>
-    <p class="small">시범 기간에 확인할 것: 시간대별 호출 수, 호출 후 기다린 시간, 진동에서 환승에 성공한 비율, 1명당 운영비.</p>
-  </div>
-</section>
+  <dl class="plan">
+    <dt>어디서</dt><dd>덕곡입구~서북동마을 정류소 42곳. 지금 있는 정류소를 그대로 호출 장소로 씁니다.<span class="pill fact">시간표 분석</span></dd>
+    <dt>어디로</dt><dd>진동환승센터. 마산·창원행 버스로 갈아타는 곳입니다.<span class="pill fact">시간표 분석</span></dd>
+    <dt>언제</dt><dd>07~20시로 시작. 73번 사이의 긴 빈 시간을 메웁니다.<span class="pill">가정</span></dd>
+    <dt>몇 대</dt><dd>1대. 시속 30km로 가정하면 가장 먼 서북동마을까지 왕복 약 <span class="num" id="cyc"></span>분입니다.<span class="pill">가정</span></dd>
+    <dt>어떻게</dt><dd>지금 누비다처럼 ‘경남콜버스’ 앱으로 부르고, 요금과 환승은 시내버스와 같게 합니다.</dd>
+    <dt>겹침</dt><dd>지금 누비다 구역(성산구 도심), 예정된 진해 신항 시범과 겹치지 않습니다.</dd>
+    <dt>확인할 것</dt><dd>시간대별 호출 수, 부른 뒤 기다린 시간, 진동에서 환승한 비율, 1명당 운영비.</dd>
+  </dl>
+</div></section>
 
-<section id="s5">
-  <div class="step"><span class="num">5</span><h2>주의할 점</h2></div>
-  <ul class="plain">
-    <li>시간표에는 <b>출발 시각만</b> 있고, 중간 정류소에 몇 시에 오는지는 없습니다. 그래서 도착 시각이나 대기시간을 지어내지 않았습니다.</li>
-    <li>토요일 시간표는 버스정보시스템에서 제공되지 않아 빠졌습니다(73번은 공식 시간표상 토·일이 같음).</li>
-    <li>계곡에 몇 명이 사는지, 어디로 가고 싶어 하는지는 자료가 없어 확인하지 못했습니다.</li>
-    <li>누비다 운영 시간·차량 수는 예시로 정한 값입니다. 실제 값은 시범 운영 기록으로 정해야 합니다.</li>
+<section class="alt" id="limits"><div class="wrap">
+  <p class="eyebrow">주의할 점</p>
+  <h2>이 분석이 말해 주지 않는 것.</h2>
+  <ul class="lim">
+    <li>시간표에는 출발 시각만 있습니다. 중간 정류소에 몇 시에 오는지, 실제로 얼마나 기다리는지는 계산하지 않았습니다.</li>
+    <li>계곡에 몇 명이 살고 어디로 가고 싶어 하는지는 자료가 없어 확인하지 못했습니다.</li>
+    <li>탑승 기록은 2025년 5월 한 주 자료입니다. 그 뒤 73번 시간표가 바뀌었습니다.</li>
+    <li>누비다 운영 시간과 차량 수는 예시로 정한 값입니다. 실제 값은 시범 운영 기록으로 정해야 합니다.</li>
   </ul>
-</section>
+</div></section>
+</main>
 
-<footer>
-  <b>자료 출처</b>
-  <ul class="plain">
+<footer><div class="wrap">
+  <b style="color:var(--ink2)">자료 출처</b>
+  <ul>
     <li>창원시 시내버스 노선별 운행시간표(2026.9.29. 기준), 창원시 누리집 교통 공지</li>
-    <li>창원버스정보시스템 노선·정류소·시간표 (2026.9.29. 조회)</li>
+    <li>창원 버스정보시스템 노선·정류소·시간표(2026.9.29. 조회)</li>
     <li>공공데이터포털: 창원시 버스정류소 위치정보(2025.12.31.), 창원시 시내버스 탑승인원(2025.5.19~25)</li>
     <li>창원시 누비다 사업개편 안내(2025.12.29.), 2026년 달라지는 시책</li>
   </ul>
-  <p>계산 방법과 스크립트는 보고서 부록과 저장소의 scripts 폴더에 있습니다. 이 화면의 숫자는 보고서와 같은 결과 파일에서 나옵니다.</p>
-</footer>
-</main>
-<div class="tip" id="tip"></div>
+  <p style="margin-top:12px">이 화면의 숫자는 분석보고서와 같은 결과 파일에서 나옵니다. 계산 방법은 보고서 부록에 있습니다.</p>
+</div></footer>
+<div class="tip" id="tip" hidden></div>
+
 <script>
 const D=__DATA__;
 const $=s=>document.querySelector(s),tip=$("#tip"),NS="http://www.w3.org/2000/svg";
 const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
-const tipOn=(e,h)=>{tip.innerHTML=h;tip.style.display="block";tip.style.left=Math.min(e.clientX+12,innerWidth-190)+"px";tip.style.top=(e.clientY+14)+"px"},tipOff=()=>tip.style.display="none";
+const tipOn=(e,h)=>{tip.innerHTML=h;tip.hidden=false;tip.style.left=Math.min(e.clientX+14,innerWidth-200)+"px";tip.style.top=(e.clientY+16)+"px"},tipOff=()=>tip.hidden=true;
 const mins=t=>+t.slice(0,2)*60+ +t.slice(3,5);
 
-// 숫자
-const wOut=D.deps["평일|out"];
-$("#nz").textContent=wOut.valley.length+"번";$("#nc").textContent=wOut.jindong.length+"번";
-$("#ncs").textContent="여러 노선 (지나가는 버스 "+wOut.jindong_through+"번 제외)";
-$("#dist").textContent=D.facts.dist_first;$("#bw").textContent=D.facts.boarding_week;$("#bd").textContent=Math.round(D.facts.boarding_week/7);
+const w=D.deps["평일|out"];
+$("#nz").textContent=w.valley.length;$("#nc").textContent=w.jindong.length;$("#heroC").textContent=w.jindong.length;
+$("#ncs").textContent="여러 노선 · 지나가기만 하는 버스(하루 "+w.jindong_through+"번)는 뺀 수";
+$("#dist").textContent=D.facts.dist_first;$("#bw").textContent=D.facts.boarding_week;$("#bd").textContent=Math.round(D.facts.boarding_week/7);$("#cyc").textContent=D.facts.cycle30;
 
 // 지도
 (function(){const s=$("#map"),g=D.geo,all=g.bg.concat(g.route),xs=all.map(p=>p[0]),ys=all.map(p=>p[1]);
-const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),k=Math.min(420/((x1-x0)*.82),320/(y1-y0));
-const X=x=>10+(x-x0)*.82*k,Y=y=>330-(y-y0)*k;
-g.bg.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:1.1,fill:"var(--line)"},s));
-el("polyline",{points:g.route.map(p=>X(p[0])+","+Y(p[1])).join(" "),fill:"none",stroke:"var(--add)","stroke-width":2.5,"stroke-linejoin":"round"},s);
-const put=(pts,c,r)=>pts.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r,fill:c,stroke:"var(--card)","stroke-width":1.5},s));
-put(g.Z,"var(--z)",4.5);put(g.C,"var(--c)",6);put(g.H,"var(--ink)",6);
-const lab=(pts,t,dx,dy)=>{const p=pts[0];el("text",{x:X(p[0])+dx,y:Y(p[1])+dy,style:"font-size:13px;font-weight:700;fill:var(--ink)"},s).textContent=t};
-lab(g.Z.slice().sort((a,b)=>a[0]-b[0]),"서북동 계곡",-8,-12);lab(g.C,"진동환승센터",10,16);lab(g.H,"마산역",10,4);
-el("text",{x:X(g.route[Math.floor(g.route.length*0.22)][0])+8,y:Y(g.route[Math.floor(g.route.length*0.22)][1]),style:"font-size:11px;fill:var(--muted)"},s).textContent="73번 경로";})();
+const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),k=Math.min(520/((x1-x0)*.82),390/(y1-y0));
+const X=x=>20+(x-x0)*.82*k,Y=y=>405-(y-y0)*k;
+g.bg.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:1.3,fill:"var(--line)"},s));
+el("polyline",{points:g.route.map(p=>X(p[0])+","+Y(p[1])).join(" "),fill:"none",stroke:"var(--ghost)","stroke-width":3,"stroke-linejoin":"round","stroke-linecap":"round"},s);
+const put=(pts,c,r)=>pts.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r,fill:c,stroke:"var(--panel)","stroke-width":2},s));
+put(g.Z,"var(--valley)",5);put(g.C,"var(--hub)",7);put(g.H,"var(--ink)",7);
+const lab=(p,t,dx,dy,anchor)=>{el("text",{x:X(p[0])+dx,y:Y(p[1])+dy,"text-anchor":anchor||"start",style:"font-size:15px;font-weight:700;fill:var(--ink)"},s).textContent=t};
+const zw=g.Z.slice().sort((a,b)=>a[0]-b[0])[0];lab(zw,"서북동 계곡",-4,-16);lab(g.C[0],"진동환승센터",12,22);lab(g.H[0],"마산역",12,5);})();
 
-// 타임라인
-function axis(s,W,y,H0){for(let h=5;h<=24;h++){const x=60+(W-80)*(h-5)/19;el("line",{x1:x,x2:x,y1:H0,y2:y,stroke:"var(--line)"},s);if(h%3===2||h===24)el("text",{x,y:y+16,"text-anchor":"middle"},s).textContent=h+"시"}}
-const xpos=(t,W)=>60+(W-80)*(mins(t)-300)/(19*60);
-function dots(s,list,y,W,style,label){list.forEach(([t,r])=>{const c=el("circle",Object.assign({cx:xpos(t,W),cy:y,r:6},style),s);
- const hit=el("circle",{cx:xpos(t,W),cy:y,r:11,fill:"transparent"},s);hit.addEventListener("mousemove",e=>tipOn(e,`<b>${t}</b> 출발 · ${r}번<br><span style="color:var(--muted)">${label}</span>`));hit.addEventListener("mouseleave",tipOff)})}
-function drawTL(day,dir){const s=$("#tl");s.innerHTML="";const W=820,d=D.deps[day+"|"+dir];axis(s,W,140,10);
- el("text",{x:0,y:52},s).textContent="서북동 계곡";el("text",{x:0,y:112},s).textContent="진동환승센터";
- dots(s,d.valley,48,W,{fill:"var(--z)",stroke:"var(--card)","stroke-width":2},"서북동 계곡");
- dots(s,d.jindong,108,W,{fill:"var(--c)",stroke:"var(--card)","stroke-width":2},"진동환승센터");
- const v=d.valley.map(x=>mins(x[0])),gaps=v.slice(1).map((m,i)=>m-v[i]),mg=Math.max(...gaps),last=d.valley[d.valley.length-1][0];
- const am=l=>l.filter(([t])=>mins(t)>=420&&mins(t)<540).length;
- const where=dir==="out"?"계곡에서 나가는":"마산역에서 계곡으로 돌아오는";
- $("#tlnote").innerHTML=`${where} 버스는 <b style="color:var(--z)">${d.valley.length}번</b>뿐이고, 한 번 놓치면 최대 <b>${Math.floor(mg/60)}시간 ${mg%60}분</b>을 기다려야 합니다. 마지막 버스는 <b>${last}</b>입니다. 같은 방향으로 진동에서는 <b style="color:var(--c)">${d.jindong.length}번</b> 출발합니다. 아침 7~9시만 보면 계곡 ${am(d.valley)}번, 진동 ${am(d.jindong)}번입니다.`;
- $("#thr").textContent=d.jindong_through;}
-function toggle(box,opts,cb){let cur=opts[0][0];opts.forEach(([v,t])=>{const b=document.createElement("button");b.textContent=t;b.dataset.v=v;b.setAttribute("aria-pressed",v===cur);
- b.onclick=()=>{cur=v;[...box.children].forEach(c=>c.setAttribute("aria-pressed",c.dataset.v===v));cb(v)};box.appendChild(b)});return()=>cur}
+// 하루 타임라인
+const W=900,L=92,R=20,xpos=t=>L+(W-L-R)*(mins(t)-300)/(19*60);
+function axis(s,top,bottom){for(let h=5;h<=24;h++){const x=L+(W-L-R)*(h-5)/19;el("line",{x1:x,x2:x,y1:top,y2:bottom,stroke:"var(--line)"},s);
+ if((h-5)%3===0||h===24)el("text",{x,y:bottom+20,"text-anchor":"middle",style:"font-size:12px"},s).textContent=h+"시"}}
+function dots(s,list,y,style,label){list.forEach(([t,r])=>{el("circle",Object.assign({cx:xpos(t),cy:y,r:7},style),s);
+ const h=el("circle",{cx:xpos(t),cy:y,r:13,fill:"transparent",tabindex:0},s);
+ h.addEventListener("mousemove",e=>tipOn(e,`<b class="num">${t}</b> 출발 · ${r}번<br><span style="color:var(--muted)">${label}</span>`));h.addEventListener("mouseleave",tipOff)})}
+function row(s,y,t){el("text",{x:0,y:y+5,style:"font-size:14px;font-weight:500;fill:var(--ink)"},s).textContent=t}
 let day="평일",dir="out";
-toggle($("#ctlDay"),[["평일","평일"],["일·공휴일","일요일·공휴일"]],v=>{day=v;drawTL(day,dir)});
-toggle($("#ctlDir"),[["out","나갈 때 (→ 마산역)"],["back","돌아올 때 (마산역 →)"]],v=>{dir=v;drawTL(day,dir)});
-drawTL(day,dir);
+function drawTL(){const s=$("#tl");s.innerHTML="";const d=D.deps[day+"|"+dir];axis(s,16,158);
+ row(s,56,"서북동 계곡");row(s,120,"진동환승센터");
+ dots(s,d.valley,56,{fill:"var(--valley)",stroke:"var(--bg)","stroke-width":2},"서북동 계곡");
+ dots(s,d.jindong,120,{fill:"var(--hub)",stroke:"var(--bg)","stroke-width":2},"진동환승센터");
+ const v=d.valley.map(x=>mins(x[0])),gaps=v.slice(1).map((m,i)=>m-v[i]),last=d.valley[d.valley.length-1][0];
+ const common=gaps.sort((a,b)=>gaps.filter(x=>x===b).length-gaps.filter(x=>x===a).length)[0];
+ const am=l=>l.filter(([t])=>mins(t)>=420&&mins(t)<540).length;
+ const lead=dir==="out"?"계곡에서 마산역 쪽으로 나가는 버스":"마산역에서 계곡으로 돌아오는 버스";
+ $("#tlnote").innerHTML=`${lead}는 하루 <b class="valley">${d.valley.length}번</b>, 대부분 <b>${Math.floor(common/60)}시간 ${common%60}분</b> 간격입니다. 마지막 버스는 <b class="num">${last}</b>. 출근·통학 시간인 아침 7~9시에는 계곡 ${am(d.valley)}번, 진동 ${am(d.jindong)}번입니다.`;
+ $("#thr").textContent=d.jindong_through}
+function seg(box,opts,cb){opts.forEach(([v,t],i)=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.dataset.v=v;b.setAttribute("aria-pressed",i===0);
+ b.onclick=()=>{[...box.children].forEach(c=>c.setAttribute("aria-pressed",c===b));cb(v)};box.appendChild(b)})}
+seg($("#ctlDay"),[["평일","평일"],["일·공휴일","일요일·공휴일"]],v=>{day=v;drawTL()});
+seg($("#ctlDir"),[["out","나갈 때"],["back","돌아올 때"]],v=>{dir=v;drawTL()});
+drawTL();
 
 // 제안 타임라인
-function drawSc(sc){const s=$("#tl2");s.innerHTML="";const W=820,d=D.deps["평일|out"],add=d["add_"+sc];axis(s,W,80,6);
- const [a,b]=sc==="S1"?[7,20]:[6,23];const x1=xpos(String(a).padStart(2,"0")+":00",W),x2=xpos(String(b).padStart(2,"0")+":00",W);
- el("rect",{x:x1,y:14,width:x2-x1,height:52,rx:8,fill:"var(--soft)"},s);
- el("text",{x:x1+6,y:26,style:"font-size:11px;fill:var(--muted)"},s).textContent=`누비다 운영 ${a}~${b}시 (가정)`;
- dots(s,add,46,W,{fill:"var(--card)",stroke:"var(--add)","stroke-width":2,"stroke-dasharray":"3 2"},"진동에서 갈아타기(가정)");
- dots(s,d.valley,46,W,{fill:"var(--z)",stroke:"var(--card)","stroke-width":2},"73번 직행");
- $("#s0").textContent=d.valley.length+"번";$("#s1n").textContent=(d.valley.length+add.length)+"번";}
-toggle($("#ctlSc"),[["S1","누비다 07~20시 운영"],["S2","누비다 06~23시 운영"]],drawSc);drawSc("S1");
+function drawSc(sc){const s=$("#tl2");s.innerHTML="";const d=D.deps["평일|out"],add=d["add_"+sc];axis(s,10,100);
+ const [a,b]=sc==="S1"?[7,20]:[6,23],hh=h=>String(h).padStart(2,"0")+":00";
+ el("rect",{x:xpos(hh(a)),y:22,width:xpos(hh(b))-xpos(hh(a)),height:66,rx:12,fill:"var(--panel)"},s);
+ el("text",{x:xpos(hh(a))+10,y:38,style:"font-size:12px;fill:var(--muted)"},s).textContent=`누비다 운영 ${a}~${b}시 (가정)`;
+ row(s,62,"계곡 주민");
+ dots(s,add,62,{fill:"var(--bg)",stroke:"var(--ghost)","stroke-width":2,"stroke-dasharray":"3 2"},"누비다로 진동까지 가서 탑승(가정)");
+ dots(s,d.valley,62,{fill:"var(--valley)",stroke:"var(--bg)","stroke-width":2},"73번 직행");
+ $("#s0").textContent=d.valley.length;$("#s1n").textContent=d.valley.length+add.length}
+seg($("#ctlSc"),[["S1","07~20시 운영"],["S2","06~23시 운영"]],drawSc);drawSc("S1");
 
 // 탑승 막대
-(function(){const b=D.facts.boarding_by_stop.slice(0,8),mx=b[0][1];$("#bars").innerHTML=b.map(([n,v])=>`<div class="row"><span>${n}</span><span class="b" style="width:${v/mx*100}%"></span><span>${v}명</span></div>`).join("")})();
-$("#cyc").textContent=D.facts.cycle30;
+(function(){const b=D.facts.boarding_by_stop.slice(0,8),mx=b[0][1];
+ $("#bars").innerHTML=b.map(([n,v])=>`<div class="r"><span>${n}</span><span class="t" style="width:${v/mx*100}%"></span><span class="n num">${v}명</span></div>`).join("")})();
 </script>
 </body>
 </html>
