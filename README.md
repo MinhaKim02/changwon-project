@@ -4,7 +4,7 @@
 
 <b>창원 시내버스 시간표로 버스가 드문 동네를 찾고,<br>호출버스로 가까운 환승센터와 잇는 방안을 제안한 공공데이터 분석</b>
 
-[![대시보드 보기](https://img.shields.io/badge/대시보드-바로_보기-D4561F?style=for-the-badge)](https://claude.ai/artifact/2KT4RGkgaRAtHnmU4f1jXg)
+[![대시보드 보기](https://img.shields.io/badge/대시보드-바로_보기-D4561F?style=for-the-badge)](https://minhakim02.github.io/changwon-project/dashboard/)
 
 ![Python](https://img.shields.io/badge/Python-pandas_·_matplotlib-3776AB?logo=python&logoColor=white)
 ![Data](https://img.shields.io/badge/데이터-창원시_공공데이터-2A78D6)
@@ -25,7 +25,7 @@
 | <b>발견</b> | 진북면 서북동 계곡은 평일 마산역 방향 버스가 <b>하루 10편</b>(73번)뿐입니다. 약 2.2km 떨어진 진동환승센터에서는 같은 방향 버스가 <b>53편</b> 출발합니다. |
 | <b>제안</b> | 계곡과 진동환승센터 사이만 누비다로 이어 주면, 계곡 주민이 탈 수 있는 마산역 방향 버스가 <b>10편 → 48편</b>이 됩니다. <i>(누비다 07\~20시 운영을 가정한 계산)</i> |
 
-<b>역할:</b> 개인 프로젝트. 자료 수집, 데이터 검증, 분석, 시각화, 대시보드 제작을 모두 직접 했습니다.
+<b>팀:</b> 렛뎀고(2인) · [@MinhaKim02](https://github.com/MinhaKim02) · [@ajdrh](https://github.com/ajdrh)
 
 ## 먼저 알아 두면 좋은 말
 
