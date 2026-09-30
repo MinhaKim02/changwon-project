@@ -4,7 +4,7 @@ report/refs/
 __pycache__/
 .DS_Store
 
-# 분석보고서 원문과 보고서 생성 스크립트는 공모전 결과 발표 뒤 공개
+# 공모전 제출 문서와 생성 스크립트는 올리지 않음
 report/*.hwpx
 report/review/
 scripts/08_build_report.py
